@@ -1,6 +1,7 @@
 const SUPABASE_URL = 'https://zarjoypwcxcuksdxbluy.supabase.co';
 const SUPABASE_KEY =
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InphcmpveXB3Y3hjdWtzZHhibHV5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjQyOTQ3MTEsImV4cCI6MTk3OTg3MDcxMX0.5y0PggF5OAkLdzY6FQnV0VYRwwV_GkbNietUDIFasf0';
+
 const client = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 /* Auth related functions */
@@ -36,6 +37,8 @@ export async function updateProfile(profile) {
 
 export async function getProfile(id) {
     // > Part B: get profile by id, maybe single row returned
+    const response = await client.from('profiles').select().match({ id }).maybeSingle();
+    return response;
 }
 
 export async function getProfiles() {
