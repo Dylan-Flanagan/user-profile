@@ -1,6 +1,7 @@
-const SUPABASE_URL = 'https://rtgjuzfenqqzvbeuakok.supabase.co';
+const SUPABASE_URL = 'https://zarjoypwcxcuksdxbluy.supabase.co';
 const SUPABASE_KEY =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ0Z2p1emZlbnFxenZiZXVha29rIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjA0OTk4NTUsImV4cCI6MTk3NjA3NTg1NX0.8oeztp3xsNKS41oByRVPcWzX-MM8_vXfcKfiEyH8A5s';
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InphcmpveXB3Y3hjdWtzZHhibHV5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjQyOTQ3MTEsImV4cCI6MTk3OTg3MDcxMX0.5y0PggF5OAkLdzY6FQnV0VYRwwV_GkbNietUDIFasf0';
+
 const client = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 /* Auth related functions */
@@ -31,14 +32,18 @@ export async function signOutUser() {
 
 export async function updateProfile(profile) {
     // > Part A: upsert into profiles table
+    return await client.from('profiles').upsert(profile).single();
 }
 
 export async function getProfile(id) {
     // > Part B: get profile by id, maybe single row returned
+    const response = await client.from('profiles').select().match({ id }).maybeSingle();
+    return response;
 }
 
 export async function getProfiles() {
     // > Part D: get all profiles (limit 100)
+    return await client.from('profiles').select();
 }
 
 // TODO:
